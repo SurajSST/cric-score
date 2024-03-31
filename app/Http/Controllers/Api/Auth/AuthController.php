@@ -63,8 +63,7 @@ class AuthController extends Controller
             'dob' => 'required|date',
             'phone' => 'required|string',
             'password' => 'required|min:8',
-            'address' => 'required|string',
-            'playerType' => 'required|string',
+            'address' => 'required|string'
         ]);
 
         if ($validator->fails()) {
