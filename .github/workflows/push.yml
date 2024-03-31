@@ -17,15 +17,6 @@ jobs:
       - name: Install Dependencies
         run: composer update
 
-      - name: Install npm
-        run: npm install
-
-      - name: npm build
-        run: npm run build
-
-      - name: Generate key
-        run: php artisan key:generate
-
       - name: 📂 Sync files
         uses: SamKirkland/FTP-Deploy-Action@4.0.0
         with:
