@@ -24,7 +24,9 @@ return new class extends Migration
             $table->date('dob')->nullable();
             $table->string('phone')->nullable();
             $table->string('address')->nullable();
-            $table->string('playerType')->nullable()->default('batsman');
+            $table->enum('playerType', ['Bowler', 'Batsman', 'Wicket-keeper', 'All-Rounder'])
+                ->nullable()
+                ->default('Batsman');
             $table->timestamps();
         });
     }

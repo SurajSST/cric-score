@@ -58,12 +58,13 @@ class AuthController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string',
-            'username' => 'required|string|unique:users', // Assuming 'userName' should be unique
+            'username' => 'required|string|unique:users',
             'email' => 'required|email|unique:users',
             'dob' => 'required|date',
             'phone' => 'required|string',
             'password' => 'required|min:8',
-            'address' => 'required|string'
+            'address' => 'required|string',
+            'playerType' => 'nullable|string' // Make playerType optional
         ]);
 
         if ($validator->fails()) {
@@ -81,14 +82,15 @@ class AuthController extends Controller
             'phone' => $request->phone,
             'password' => bcrypt($request->password),
             'address' => $request->address,
-            'playerType' => $request->playerType,
+            'playerType' => $request->input('playerType', 'Batsman'), // Set default value if not provided
         ]);
 
         return response()->json([
             'token' => $user->createToken('auth-token')->plainTextToken,
-            'user' => $request->only('name', 'username', 'email', 'dob', 'phone', 'address', 'playerType'), // Return user details in the specified format
+            'user' => $user->only('name', 'username', 'email', 'dob', 'phone', 'address', 'playerType'), // Return user object from database
         ]);
     }
+
 
     public function forgotPassword(Request $request)
     {
